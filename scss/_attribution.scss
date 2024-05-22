@@ -1,0 +1,21 @@
+/* Attribution */
+.attribution { 
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	padding: 8px;
+	text-align: center; 
+	background-color: var(--white);
+	color: var(--dark-blue);
+	
+	& a { 
+		color: var(--very-dark-blue);
+		font-weight: 700;
+	}
+	
+	& p {
+		font-size: 11px;
+		margin: 0;
+	}
+}

@@ -1,0 +1,14 @@
+@use 'mixins' as *;
+
+@font-face {
+  font-family: 'Rubik';
+  src: url(./assets/fonts/Rubik-Variable.woff2) format('woff2'),
+       url(./assets/fonts/Rubik-Variable.ttf) format('truetype');
+}
+
+body {
+  font-family: 'Rubik', sans-serif;
+  font-weight: 400;
+  font-size: 1.125rem;
+  color: var(--white);
+}
