@@ -4,3 +4,111 @@
 @use 'typography';
 @use 'attribution';
 
+body {
+  height: 100vh;
+  background-color: var(--very-dark-blue);
+  padding: 80px 16px;
+  align-content: center;
+  overflow: scroll;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+
+  @include tablet-up {
+    display: grid;
+    grid-template-columns: max-content max-content;
+  }
+
+  @include desktop-up {
+    grid-template-columns: repeat(4, max-content);
+    grid-row: repeat(2, max-content);
+  }
+}
+
+.dashboard {
+  background-color: var(--dark-blue);
+  border-radius: 25px 25px 15px 15px;
+  width: 100%;
+  max-width: 327px;
+  grid-column-start: span 2;
+
+  @include tablet-up {
+    max-width: none;
+  }
+
+  @include desktop-up {
+    grid-column: 1;
+    grid-row-start: span 2;
+    height: 100%;
+  }
+
+  &__user {
+    background-color: var(--blue);
+    border-radius: 15px;
+    padding: 32px;
+    display: flex;
+    align-items: center;
+
+    img {
+      width: 4rem;
+      border: 3px solid var(--white);
+      border-radius: 50%;
+      box-sizing: content-box;
+      margin-right: 20px;
+    }
+
+    p {
+      margin-bottom: 4px;
+    }
+  }
+
+  &__view {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    text-align: center;
+    padding: 24px 0;
+
+    span:not(:nth-of-type(2)) {
+      color: var(--desaturated-blue);
+      cursor: pointer;
+    }
+  }
+}
+
+.card {
+  padding-top: 38px;
+  border-radius: 15px 15px 25px 25px;
+  background-color: var(--work);
+  background-image: url(./assets/images/icon-work.svg);
+  background-repeat: no-repeat;
+  background-position: right 20px top -10px;
+  width: 100%;
+  max-width: 327px;
+
+  &__content {
+    background-color: var(--dark-blue);
+    padding: 28px 24px;
+    border-radius: 15px;
+
+    > div {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+
+      &:first-of-type {
+        margin-bottom: 7px;
+      }
+
+      img {
+        cursor: pointer;
+      }
+    }
+  }
+}
+
