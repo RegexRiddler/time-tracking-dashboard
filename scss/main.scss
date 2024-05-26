@@ -9,7 +9,6 @@ body {
   background-color: var(--very-dark-blue);
   padding: 80px 16px;
   align-content: center;
-  overflow: scroll;
 }
 
 main {
@@ -26,7 +25,7 @@ main {
 
   @include desktop-up {
     grid-template-columns: repeat(4, max-content);
-    grid-row: repeat(2, max-content);
+    grid-template-rows: 1fr 1fr;
   }
 }
 
@@ -36,6 +35,8 @@ main {
   width: 100%;
   max-width: 327px;
   grid-column-start: span 2;
+  display: flex;
+  flex-direction: column;
 
   @include tablet-up {
     max-width: none;
@@ -45,6 +46,7 @@ main {
     grid-column: 1;
     grid-row-start: span 2;
     height: 100%;
+    max-width: 255px;
   }
 
   &__user {
@@ -54,12 +56,24 @@ main {
     display: flex;
     align-items: center;
 
+    @include desktop-up {
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 37px 32px 80px;
+    }
+
     img {
-      width: 4rem;
+      width: 64px;
       border: 3px solid var(--white);
       border-radius: 50%;
       box-sizing: content-box;
       margin-right: 20px;
+
+      @include desktop-up {
+        width: 78px;
+        height: auto;
+        margin-bottom: 43px;
+      }
     }
 
     p {
@@ -71,11 +85,20 @@ main {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     text-align: center;
-    padding: 24px 0;
+    padding: 24px 32px;
 
-    span:not(:nth-of-type(2)) {
+    a {
       color: var(--desaturated-blue);
       cursor: pointer;
+    }
+
+    @include desktop-up {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      flex: 1 1 auto;
+      gap: 21px;
+      padding: 26px 32px 33px;
     }
   }
 }
@@ -83,17 +106,29 @@ main {
 .card {
   padding-top: 38px;
   border-radius: 15px 15px 25px 25px;
-  background-color: var(--work);
-  background-image: url(./assets/images/icon-work.svg);
   background-repeat: no-repeat;
   background-position: right 20px top -10px;
   width: 100%;
-  max-width: 327px;
+  max-width: 327px;  
+  
+  @include desktop-up {
+    padding-top: 45px;
+    width: 255px;
+  }
 
   &__content {
     background-color: var(--dark-blue);
     padding: 28px 24px;
     border-radius: 15px;
+    cursor: pointer;
+    
+    &:hover, &:focus {
+      background-color: var(--card-hover);
+    }
+
+    @include desktop-up {
+      padding: 28px 30px 32px;
+    }
 
     > div {
       display: flex;
@@ -103,6 +138,22 @@ main {
 
       &:first-of-type {
         margin-bottom: 7px;
+
+        @include desktop-up {
+          margin-bottom: 25px;
+        }
+      }
+
+      &:last-of-type {
+        @include desktop-up {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        h3 {
+          margin-bottom: 8px;
+        }
       }
 
       img {
@@ -110,5 +161,13 @@ main {
       }
     }
   }
+}
+
+input {
+  display: none;
+}
+
+label {
+  color: var(--desaturated-blue);
 }
 
