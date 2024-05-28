@@ -569,7 +569,6 @@ main {
   background-color: var(--dark-blue);
   padding: 28px 24px;
   border-radius: 15px;
-  cursor: pointer;
 }
 .card__content:hover, .card__content:focus {
   background-color: var(--card-hover);
@@ -602,9 +601,6 @@ main {
 }
 .card__content > div:last-of-type h3 {
   margin-bottom: 8px;
-}
-.card__content > div img {
-  cursor: pointer;
 }
 
 input {

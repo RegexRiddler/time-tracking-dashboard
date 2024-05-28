@@ -1,53 +1,19 @@
-const contentWrapper =  document.querySelector('#wrapper');
-const viewRanges = document.querySelectorAll('.dashboard__view--range');
-
-function dashboard() {
-  contentWrapper.innerHTML = `
-    <div class="dashboard">
-      <div class="dashboard__user">
-        <img src="./assets/images/image-jeremy.png" alt="headshot of Jeremy smiling" width="64" height="64">
-        <div>
-          <p>Report for</p>
-          <h1>Jeremy Robson</h1>
-        </div>
-      </div>
-      <div class="dashboard__view">
-        <button class="dashboard__view--range" value="daily">Daily</button>
-        <button class="dashboard__view--range active" value="weekly">Weekly</button>
-        <button class="dashboard__view--range" value="monthly">Monthly</button>
-      </div>
-    </div>
-  `
-}
-
-console.log(viewRanges);
-
-dashboard();
-
-function updateViewRange() {
-  viewRanges.forEach((range) => range.classList.remove("active"));
-};
-
-viewRanges.forEach((range) => {
-  range.addEventListener('click', () => {
-    updateViewRange(range.getAttribute('value'));
-    console.log(range.getAttribute('value'));
-  })
-})
-
+// Need to put this in some sort of initiation function
 fetch('./data.json')
 .then(response => response.json())
 .then(data => {
-    data.forEach(card => {
-      appendItem(card);
-    });
-  })
-  .catch(error => console.log(error));
+  data.forEach(card => {
+    appendItem(card);
+  });
+})
+.catch(error => console.log(error));
 
+// Appends HTML template to the DOM
+const contentWrapper = document.querySelector('#wrapper');
 
 function appendItem(userData) {
   contentWrapper.innerHTML += `
-    <div class="card" style="background-image: url(./assets/images/icon-${userData.title.toLowerCase().replace(" ", "-")}.svg); background-color: var(--${userData.title.toLowerCase().replace(" ", "-")})">
+    <div class="card card--${userData.title.toLowerCase().replace(" ", "-")}" style="background-image: url(./assets/images/icon-${userData.title.toLowerCase().replace(" ", "-")}.svg); background-color: var(--${userData.title.toLowerCase().replace(" ", "-")})">
       <div class="card__content">
         <div>
           <h2>${userData.title}</h2>
@@ -60,6 +26,22 @@ function appendItem(userData) {
       </div>
     </div>
   `;
-
-  console.log(userData);
 }
+
+// INCOMPLETE! But for now removes active class on the range selectors (day, week, month)
+function updateViewRange() {
+  viewRanges.forEach((range) => range.classList.remove("active"));
+};
+
+// Iterates over the 3 different range selectors and adds an event listener to the current element.
+// This part does not work unless I comment out the whole appendItem function. Why?
+const viewRanges = document.querySelectorAll('.dashboard__view--range');
+console.log(viewRanges);
+
+viewRanges.forEach((range) => {
+  range.addEventListener('click', () => {
+    updateViewRange(range.getAttribute('value'));
+    console.log(range.getAttribute('value'));
+  })
+});
+
