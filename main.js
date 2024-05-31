@@ -1,47 +1,55 @@
-// Need to put this in some sort of initiation function
-fetch('./data.json')
-.then(response => response.json())
-.then(data => {
-  data.forEach(card => {
-    appendItem(card);
-  });
-})
-.catch(error => console.log(error));
+function fetchData() {
+  fetch('./data.json')
+    .then(response => response.json())
+    .then(data => {
+      data.forEach(card => {
+        updateDashboard(card, 'weekly');
+      });
 
-// Appends HTML template to the DOM
-const contentWrapper = document.querySelector('#wrapper');
+      initiateTimeFrameButtons(data);
 
-function appendItem(userData) {
-  contentWrapper.innerHTML += `
-    <div class="card card--${userData.title.toLowerCase().replace(" ", "-")}" style="background-image: url(./assets/images/icon-${userData.title.toLowerCase().replace(" ", "-")}.svg); background-color: var(--${userData.title.toLowerCase().replace(" ", "-")})">
-      <div class="card__content">
-        <div>
-          <h2>${userData.title}</h2>
-          <img src="./assets/images/icon-ellipsis.svg" alt="menu ellipsis" width="21" height="5">
-        </div>
-        <div>
-          <h3>${userData.timeframes.weekly.current}hrs</h3>
-          <p>Last Week - ${userData.timeframes.weekly.previous}hrs</p>
-        </div>
-      </div>
-    </div>
-  `;
+    })
+    .catch(error => console.log('Error loading the data:', error));
 }
 
-// INCOMPLETE! But for now removes active class on the range selectors (day, week, month)
-function updateViewRange() {
-  viewRanges.forEach((range) => range.classList.remove("active"));
-};
+// Appends HTML template to the DOM
+function updateDashboard(cardData, period) {
+  const contentWrapper = document.querySelector('#wrapper');
+  const cardElement = document.createElement("div");
+  
+  cardElement.classList.add("card", `card--${cardData.title.toLowerCase().replace(" ", "-")}`);
+  cardElement.style.backgroundImage = `url(./assets/images/icon-${cardData.title.toLowerCase().replace(" ", "-")}.svg)`;
+  cardElement.style.backgroundColor = `var(--${cardData.title.toLowerCase().replace(" ", "-")})`;
+  
+  cardElement.innerHTML += `
+  <div class="card__content">
+  <div>
+  <h2>${cardData.title}</h2>
+  <img src="./assets/images/icon-ellipsis.svg" alt="menu ellipsis" width="21" height="5">
+  </div>
+  <div>
+  <h3>${cardData.timeframes[period].current}hrs</h3>
+  <p>Last Week - ${cardData.timeframes[period].previous}hrs</p>
+  </div>
+  </div>
+  `;
+  
+  contentWrapper.append(cardElement);
+}
 
-// Iterates over the 3 different range selectors and adds an event listener to the current element.
-// This part does not work unless I comment out the whole appendItem function. Why?
-const viewRanges = document.querySelectorAll('.dashboard__view--range');
-console.log(viewRanges);
+function initiateTimeFrameButtons(data) {
+  const timeFrames = document.querySelectorAll('.dashboard__view--range');
 
-viewRanges.forEach((range) => {
-  range.addEventListener('click', () => {
-    updateViewRange(range.getAttribute('value'));
-    console.log(range.getAttribute('value'));
-  })
-});
+  timeFrames.forEach((timeFrame) => {
+    timeFrame.addEventListener('click', () => {
+      timeFrames.forEach((timeFrame) => timeFrame.classList.remove("active"));
+      document.querySelectorAll('.card').forEach(card => card.remove());
+      data.forEach(card => {
+        updateDashboard(card, timeFrame.getAttribute('value'));
+      })
+      timeFrame.classList.add("active");
+    })
+  });
+}
 
+fetchData();

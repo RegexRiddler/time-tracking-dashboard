@@ -536,7 +536,7 @@ main {
   text-align: center;
   padding: 24px 32px;
 }
-.dashboard__view a {
+.dashboard__view--range {
   color: var(--desaturated-blue);
   cursor: pointer;
 }
@@ -603,10 +603,6 @@ main {
   margin-bottom: 8px;
 }
 
-input {
-  display: none;
-}
-
-label {
-  color: var(--desaturated-blue);
+.active {
+  color: var(--white);
 }/*# sourceMappingURL=main.css.map */

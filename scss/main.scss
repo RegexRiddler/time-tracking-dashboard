@@ -87,7 +87,7 @@ main {
     text-align: center;
     padding: 24px 32px;
 
-    a {
+    &--range {
       color: var(--desaturated-blue);
       cursor: pointer;
     }
@@ -158,11 +158,6 @@ main {
   }
 }
 
-input {
-  display: none;
+.active {
+  color: var(--white);
 }
-
-label {
-  color: var(--desaturated-blue);
-}
-
